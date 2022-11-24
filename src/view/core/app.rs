@@ -1,19 +1,19 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
+use yewdux::prelude::*;
+use crate::data::{
+  reducer::Msg, state::State,
+};
 
 use super::router::{Route, switch};
 
 #[function_component(App)]
 pub fn app() -> Html {
-  let navbar_active = use_state(|| false);
-
-  let onclick = {
-    let navbar_active = navbar_active.clone();
-    Callback::from(move |_| navbar_active.set(!*navbar_active))
-  };
+  let (state, dispatch) = use_store::<State>();
+  let toggler_navbar = dispatch.apply_callback(|_| Msg::ToggleNavbar);
 
   let view_nav = || {
-    let active_class = if !*navbar_active {"is-active"} else {""};
+    let active_class = if !state.navbar_active {"is-active"} else {""};
 
     html!(
       <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
@@ -22,7 +22,7 @@ pub fn app() -> Html {
 
           <button class={classes!("navbar-burger", "burger", active_class)}
             aria-label="menu" aria-expanded="false"
-            onclick={onclick}
+            onclick={toggler_navbar}
           >
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
