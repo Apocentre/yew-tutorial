@@ -1,8 +1,11 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
 use yewdux::prelude::*;
-use crate::data::{
-  msg::Msg, state::State,
+use crate::{
+  data::{
+    msg::Msg, state::State,
+  },
+  view::interop::ResourceProvider,
 };
 
 use super::router::{Route, switch};
@@ -44,21 +47,23 @@ pub fn app() -> Html {
   };
 
   html!(
-    <BrowserRouter>
-      {view_nav()}
-      <main>
-        <Switch<Route> render={Switch::render(switch)} />
-      </main>
-      <footer class="footer">
-        <div class="content has-text-centered">
-          { "Powered by " }
-          <a href="https://yew.rs">{ "Yew" }</a>
-          { " using " }
-          <a href="https://bulma.io">{ "Bulma" }</a>
-          { " and images from " }
-          <a href="https://unsplash.com">{ "Unsplash" }</a>
-        </div>
-      </footer>
-    </BrowserRouter>
+    <ResourceProvider>
+      <BrowserRouter>
+        {view_nav()}
+        <main>
+          <Switch<Route> render={Switch::render(switch)} />
+        </main>
+        <footer class="footer">
+          <div class="content has-text-centered">
+            { "Powered by " }
+            <a href="https://yew.rs">{ "Yew" }</a>
+            { " using " }
+            <a href="https://bulma.io">{ "Bulma" }</a>
+            { " and images from " }
+            <a href="https://unsplash.com">{ "Unsplash" }</a>
+          </div>
+        </footer>
+      </BrowserRouter>
+    </ResourceProvider>
   )
 }
