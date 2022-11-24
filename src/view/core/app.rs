@@ -2,7 +2,7 @@ use yew::prelude::*;
 use yew_router::prelude::*;
 use yewdux::prelude::*;
 use crate::data::{
-  reducer::Msg, state::State,
+  msg::Msg, state::State,
 };
 
 use super::router::{Route, switch};

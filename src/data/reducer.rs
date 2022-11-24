@@ -1,10 +1,8 @@
 use std::rc::Rc;
 use yewdux::prelude::*;
-use super::state::State;
-
-pub enum Msg {
-  ToggleNavbar
-}
+use super::{
+  state::State, msg::Msg,
+};
 
 impl Reducer<State> for Msg {
   fn apply(&self, mut state: Rc<State>) -> Rc<State> {
@@ -13,6 +11,9 @@ impl Reducer<State> for Msg {
     match self {
       Msg::ToggleNavbar => {
         mut_state.navbar_active = !mut_state.navbar_active
+      },
+      Msg::SetCatsResult(cats) => {
+        mut_state.cats = cats.clone();
       },
     };
 
