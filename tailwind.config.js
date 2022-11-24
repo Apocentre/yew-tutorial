@@ -7,6 +7,9 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    require('tw-elements/dist/plugin')
-  ]
+    require('daisyui'),
+  ],
+  daisyui: {
+    themes: ["black"],
+  },
 }

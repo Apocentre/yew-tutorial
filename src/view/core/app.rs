@@ -12,35 +12,35 @@ use super::router::{Route, switch};
 
 #[function_component(App)]
 pub fn app() -> Html {
-  let (state, dispatch) = use_store::<State>();
-  let toggler_navbar = dispatch.apply_callback(|_| Msg::ToggleNavbar);
-
   let view_nav = || {
-    let active_class = if !state.navbar_active {"is-active"} else {""};
-
     html!(
-      <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <h1 class="navbar-item is-size-3">{ "Yew Blog" }</h1>
-
-          <button class={classes!("navbar-burger", "burger", active_class)}
-            aria-label="menu" aria-expanded="false"
-            onclick={toggler_navbar}
-          >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </button>
+      <nav class="navbar bg-base-100" role="navigation" aria-label="main navigation">
+        <div class="navbar-start">
+        <div class="dropdown">
+          <label  tabindex="0" class="btn btn-ghost btn-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+          </label>
+          <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+            <li>
+              <Link<Route> to={Route::Home}>
+                { "Home" }
+              </Link<Route>>
+            </li>
+            <li>
+              <Link<Route> to={Route::Profile}>
+                { "Profile" }
+              </Link<Route>>
+            </li>
+          </ul>
         </div>
-        <div class={classes!("navbar-menu", active_class)}>
-          <div class="navbar-start">
-            <Link<Route> classes={classes!("navbar-item")} to={Route::Home}>
-              { "Home" }
-            </Link<Route>>
-            <Link<Route> classes={classes!("navbar-item")} to={Route::Profile}>
-              { "Profile" }
-            </Link<Route>>
-          </div>
+        </div>
+        <div class="navbar-center">
+          <Link<Route> classes={classes!("btn", "btn-ghost", "normal-case", "text-xl")} to={Route::Home}>
+            { "Home" }
+          </Link<Route>>
+          <Link<Route> classes={classes!("btn", "btn-ghost", "normal-case", "text-xl")} to={Route::Profile}>
+            { "Profile" }
+          </Link<Route>>
         </div>
       </nav>
     )
@@ -49,20 +49,17 @@ pub fn app() -> Html {
   html!(
     <ResourceProvider>
       <BrowserRouter>
-        {view_nav()}
-        <main>
-          <Switch<Route> render={Switch::render(switch)} />
-        </main>
-        <footer class="footer">
-          <div class="content has-text-centered">
-            { "Powered by " }
-            <a href="https://yew.rs">{ "Yew" }</a>
-            { " using " }
-            <a href="https://bulma.io">{ "Bulma" }</a>
-            { " and images from " }
-            <a href="https://unsplash.com">{ "Unsplash" }</a>
-          </div>
-        </footer>
+        <div class="min-h-screen">
+          {view_nav()}
+          <main>
+            <Switch<Route> render={Switch::render(switch)} />
+          </main>
+          <footer class="footer footer-center p-4 bg-base-300 text-base-content sticky top-[100vh]">
+            <div>
+              <p>{"Copyright © 2022 - All right reserved by Apocentre"}</p>
+            </div>
+          </footer>
+        </div>
       </BrowserRouter>
     </ResourceProvider>
   )

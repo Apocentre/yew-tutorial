@@ -1,8 +1,12 @@
 {
+  "scripts": {
+    "build:css": "tailwindcss -o ./tailwind.css"
+  },
   "devDependencies": {
     "tailwindcss": "^3.2.4"
   },
   "dependencies": {
+    "daisyui": "^2.42.1",
     "tw-elements": "^1.0.0-alpha12"
   }
 }
